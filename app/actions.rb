@@ -9,6 +9,7 @@ get '/tracks' do
 end
 
 get '/tracks/new' do
+  @track = Track.new
   erb :'tracks/new'
 end
 
@@ -17,13 +18,11 @@ get '/tracks/:id' do
   erb :'tracks/show'
 end
 
-post '/tracks' do
+post '/create_new_track' do
   @track = Track.new(
     title: params[:title],
     artist: params[:artist]
     )
-  @track.save
-  redirect '/tracks'
   if @track.save
     redirect '/tracks'
   else
